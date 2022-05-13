@@ -1,7 +1,7 @@
 Heroku-Account-Scheduler
 ===============
 
-Heroku-Account-Scheduler, A Simple Script Powered By GitHub Actions To Switch Heroku Accounts Every Fifteen Days.
+Heroku-Account-Scheduler, A Simple Script Powered By GitHub Actions To Switch Heroku Accounts Every Ten Days.
 
 This Repo Makes Sure You Never Run Out Of Dynos.
 
@@ -26,7 +26,6 @@ Make Sure Each App Runs As Intended Individually Before Moving Onto The Next Ste
 ```
 If You Don't Expect TOKENS and Stuff to Expire And Break.
 ```
-
 4. Set The Following Github Actions Secrets:
 
 ```
@@ -42,6 +41,11 @@ HEROKU_APP_NAME_2 : Your Heroku Account APP-NAME Of Second Account.
 - In The Workflows Section Click on "Heroku-Account-Scheduler.yml" Button
 - Now Click On Run Workflow. A Prompt Telling You That Scheduled Workflows Are Disabled For Forks Will Come Up. Click Enable Workflow, Then Run Workflow
 - If Done Right, The Script Would Swap Account Based On The Date Of The Month. Making Sure Your App Always Runs.
+
+6. GitHub Token(Only If you get authentication errors):
+- If your workflow gets authentication error in the Keep-Live.yml workflow, you need to set a GitHub secret named 'GITHUB_TOKEN'
+- 'GITHUB_TOKEN' can be obtained from github.com/settings/tokens
+- Make sure to create a token with infinite duration.
 
 -------
 
@@ -67,7 +71,7 @@ Why Does This Script Exist?
 -------
 
 ## **Warnings:**
-- This Bot/Script Uses GitHub Actions, Although Running One Lightweight Action Once In Fifteen Days, Is In No Way Considered Abuse Of It. You Are Still Warned Of Account Suspension(If You Reduce The Cron-Job Frequency)(If You Already Have A Billion Other Consecutive GitHub Actions Running[Although GitHub Allows Only 20 Concurrent Jobs Per Account])
+- This Bot/Script Uses GitHub Actions, Although Running One Lightweight Action Once In Ten Days, Is In No Way Considered Abuse Of It. You Are Still Warned Of Account Suspension(If You Reduce The Cron-Job Frequency)(If You Already Have A Billion Other Consecutive GitHub Actions Running[Although GitHub Allows Only 20 Concurrent Jobs Per Account])
 - You Better Have A Backup Of Your App-Data/Configs As Heroku Can Ban Your Account Whenever They Please.
 
 ## **Credits:**

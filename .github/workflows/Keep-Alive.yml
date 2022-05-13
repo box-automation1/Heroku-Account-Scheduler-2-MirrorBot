@@ -1,0 +1,29 @@
+name: Keep Actions Alive
+
+on:
+  workflow_dispatch:
+  push:
+  schedule:
+    - cron: '2 1 2 * *'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+       - name: Checkouts
+         uses: actions/checkout@v2
+
+       - name: Commit to 'keepalive' branch
+         run: |
+              # The line below, beginning with 'REPO_URL' isn't necessary as of now, due to changes made by github. It was once necessary to add GitHub token as a secret. The existing old code works as of now, even without setting the GITHUB_TOKEN secret. It's however advisable to set the token in GitHub workflow secrets, incase GitHub decides to mess things up in the future.
+              REPO_URL=$(git config --get remote.origin.url) ; REPO_BASE=$(echo "${REPO_URL}" |sed 's/.*\/\///g') ; USERNAME=$(echo $REPO_BASE |sed 's/\/.*//g') ; GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}}
+              DATE=$(date)
+              if [ "${GITHUB_EMAIL}" = "" ]; then GITHUB_EMAIL=boxboi@boxinabox.cf ; fi ; git config --global user.email "${GITHUB_EMAIL}"
+              if [ "${GITHUB_USERNAME}" = "" ]; then GITHUB_USERNAME="Box In A Box" ; fi ; git config --global user.name "${GITHUB_USERNAME}"
+              rm -rf * .git .github
+              echo "${RANDOM}${RANDOM}${RANDOM}${RANDOM}${RANDOM}" >> Random.txt
+              git init ; git add .
+              git commit -m "KeepALive As of \"${DATE}\""
+              git remote add origin https://"{USERNAME}":"${GITHUB_TOKEN}"@"${REPO_BASE}"
+              git checkout -b keepalive
+              git push --set-upstream origin keepalive -f
